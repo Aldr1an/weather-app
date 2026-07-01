@@ -5,18 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather-App</title>
     <meta name="author" content="Sabile, Aldrian">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="#">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
 </head>
 <body>
-    <header class='nav-head'>
-        <h1 id="hero-text">Weather</h1> 
+    <nav class="navbar">
+        <h1 id="nav-title">Weather</h1>
+        <h2 id="city-name"></h2>
+    </nav>
+    <header class='header'>
         <form id="input-form">
             <input id="city-input" type="text" placeholder="Manila" required>
-            <button id="search-country-button"type="submit">Enter</button>
+            <button id="search-country-button" type="submit">Search</button>
         </form>   
     </header>
+
     <main>
         <section class="display-weather">
 
