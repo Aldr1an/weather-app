@@ -3,7 +3,7 @@ document.querySelector('#input-form').addEventListener("submit", function (e) {
     e.preventDefault()
     let city_name = document.querySelector('#city-input').value
     run(city_name)
-
+    document.body.classList.add("searched")
 })
 
 async function run(city_name) {
@@ -17,10 +17,22 @@ async function run(city_name) {
             return
         }
         const {name, latitude, longitude} = results[0]
-        const weather_response = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`)
+        const weather_response = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&forecast_days=7&timezone=auto`)
         const weather_data = await weather_response.json()
-        const { current_weather } = weather_data
+        const { current_weather, daily } = weather_data
         const { temperature, weathercode } = current_weather
+        const forecast = []
+        daily.time.forEach((date, index) => {
+            const maxTemp = daily.temperature_2m_max[index]
+            const minTemp = daily.temperature_2m_min[index]
+            const code = daily.weathercode[index]
+            forecast.push({
+                date: date,
+                max: maxTemp,
+                min: minTemp,
+                weathercode: code
+            })
+        });
         display(name, temperature, weathercode)
     } catch (error) {
         console.log(error)
